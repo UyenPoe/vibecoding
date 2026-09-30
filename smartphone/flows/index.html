@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoneX — Tổng quan 18 Quy trình Nghiệp vụ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+body{background:#F8FAFC;color:#334155;line-height:1.6;}
+.topbar{background:#0F172A;color:white;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #2563EB;}
+.brand{font-size:20px;font-weight:800;letter-spacing:0.5px;display:flex;align-items:center;gap:10px;}
+.brand-badge{background:#2563EB;font-size:12px;padding:3px 10px;border-radius:6px;text-transform:uppercase;font-weight:700;letter-spacing:1px;}
+.hero{background:linear-gradient(135deg,#1E3A8A 0%,#1D4ED8 50%,#2563EB 100%);color:white;padding:56px 32px;text-align:center;}
+.hero h1{font-size:38px;font-weight:900;margin-bottom:12px;letter-spacing:-0.5px;}
+.hero p{font-size:17px;opacity:0.85;max-width:640px;margin:0 auto 24px;}
+.stat-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
+.stat{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:16px 28px;text-align:center;}
+.stat-num{font-size:32px;font-weight:900;}
+.stat-label{font-size:13px;opacity:0.8;margin-top:4px;}
+.section-divider{max-width:1300px;margin:40px auto 16px;padding:0 24px;display:flex;align-items:center;gap:12px;}
+.section-label{font-size:13px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;}
+.divider-line{flex:1;height:1px;background:#E2E8F0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;max-width:1300px;margin:0 auto;padding:0 24px 60px;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="brand-badge">PhoneX</span> Business Flow Documentation</div>
+  <div style="font-size:13px;color:#94A3B8;">18 Quy trình Nghiệp vụ</div>
+</div>
+
+<div class="hero">
+  <h1>📋 Tổng quan Hệ thống PhoneX</h1>
+  <p>Bộ tài liệu nghiệp vụ hoàn chỉnh — dành cho stakeholders, product team và đội phát triển.</p>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num">18</div><div class="stat-label">Quy trình (Flow)</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Mức phức tạp</div></div>
+    <div class="stat"><div class="stat-num">39</div><div class="stat-label">Mục yêu cầu</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Phủ sóng tính năng</div></div>
+  </div>
+</div>
+
+<!-- Section 1: Website Khách hàng -->
+<div class="section-divider">
+  <span class="section-label">🌐 Website — Trải nghiệm Khách hàng (Flow 01–08)</span>
+  <div class="divider-line"></div>
+</div>
+<div class="grid">
+        <a href="01-kham-pha-va-tim-kiem-san-pham.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 01</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#DCFCE7;color:#166534;">⭐ Cơ bản</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Khám phá & Tìm kiếm Sản phẩm</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng duyệt trang chủ, sử dụng bộ lọc đa tiêu chí, tìm kiếm thông minh và xem chi tiết sản phẩm cùng tồn kho cửa hàng.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Website PhoneX</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="02-so-sanh-dien-thoai.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 02</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#DCFCE7;color:#166534;">⭐ Cơ bản</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">So sánh Điện thoại Song song</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng chọn 2 đến 3 mẫu điện thoại để đặt cạnh nhau, làm nổi bật các điểm khác biệt về cấu hình, pin, camera và giá cả.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Website PhoneX</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="03-mua-hang-va-thanh-toan-nhanh.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 03</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Mua hàng & Đặt hàng Nhanh</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng đặt mua điện thoại không cần tài khoản, lựa chọn nhận hàng tận nhà hoặc đến lấy tại cửa hàng.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Website PhoneX</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="04-tra-cuu-don-hang-va-bao-mat.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 04</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Tra cứu Đơn hàng & Bảo mật</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng tra cứu trạng thái đơn hàng bằng số điện thoại kết hợp xác minh bảo mật, theo dõi 7 bước vận chuyển.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Website</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="05-dinh-gia-may-cu-online.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 05</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Định giá Máy cũ Online</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng tự định giá máy cũ qua 11 bước kiểm tra online, nhận báo giá tức thì và đặt lịch hẹn bán.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thu mua CRM</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="06-ban-may-cu-lay-tien-mat.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 06</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Bán Máy cũ Lấy tiền mặt</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Quy trình hoàn chỉnh từ gửi yêu cầu online, đặt lịch hẹn, kiểm định thực tế đến nhận tiền mặt tại cửa hàng.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thu mua</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="07-thu-cu-doi-moi-trade-in.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 07</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐⭐ Khá phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Thu cũ Đổi mới (Trade-in)</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Quy trình bù trừ song song: thu máy cũ và bán máy mới cùng lúc, tính chênh lệch tự động, trợ giá theo chiến dịch.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thu mua</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="08-tiep-nhan-va-xu-ly-bao-hanh.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 08</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐⭐ Khá phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Tiếp nhận & Xử lý Bảo hành</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách tra cứu IMEI, gửi ticket bảo hành online, kỹ thuật viên phân loại lỗi và xử lý theo quy trình 8 bước chuẩn.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Kỹ thuật</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+</div>
+
+<!-- Section 2: CRM Nội bộ Core -->
+<div class="section-divider">
+  <span class="section-label">⚙️ CRM Nội bộ — Vận hành & Kho (Flow 09–12)</span>
+  <div class="divider-line"></div>
+</div>
+<div class="grid">
+        <a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 09</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEE2E2;color:#991B1B;">⭐⭐⭐⭐ Phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Điều phối Đơn hàng CRM (Fulfillment)</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Vận hành nội bộ từ khi nhận đơn, phân bổ kho gần nhất, quét IMEI xuất máy, giao hàng COD đến đối soát kế toán.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Sales CRM</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thủ kho</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="10-kiem-dinh-ky-thuat-va-nhap-kho-may-cu.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 10</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEE2E2;color:#991B1B;">⭐⭐⭐⭐ Phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Kiểm định Kỹ thuật & Nhập kho Máy cũ</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Quy trình kiểm tra 18 hạng mục phần cứng, định giá tự động theo lỗi, gắn mã IMEI độc bản và định tuyến tái thương mại.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Kỹ thuật viên</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thủ kho</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 11</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#F3E8FF;color:#6B21A8;">⭐⭐⭐⭐⭐ Rất phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Quản trị Vòng đời IMEI & Tồn kho Đa điểm</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Kiểm soát từng chiếc máy theo IMEI độc nhất qua 8 trạng thái, hạch toán giá vốn và luân chuyển kho nội bộ giữa các chi nhánh.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Quản lý Kho</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Thủ kho</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 12</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#F3E8FF;color:#6B21A8;">⭐⭐⭐⭐⭐ Rất phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Động cơ Định giá & Quản trị Khuyến mãi</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Hệ thống trung tâm thiết lập bảng giá thu mua, ma trận khấu trừ tự động và điều hành Flash Sale, voucher, trợ giá Trade-in.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Ban Giám đốc</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Marketing</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+</div>
+
+<!-- Section 3: Bổ sung -->
+<div class="section-divider">
+  <span class="section-label">🔧 Cửa hàng, CRM Nâng cao & Quản trị (Flow 13–18)</span>
+  <div class="divider-line"></div>
+</div>
+<div class="grid">
+        <a href="13-click-and-collect-dat-giu-may-tai-cua-hang.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 13</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Click & Collect — Đặt Giữ Máy Tại Cửa Hàng</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng kiểm tra tồn kho theo cửa hàng, đặt giữ máy online và đến lấy tại quầy với IMEI đã được lock sẵn.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Sales CRM</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="14-tai-khoan-khach-hang-va-member-portal.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 14</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐ Trung bình</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Tài khoản Khách hàng & Member Portal</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Khách hàng đăng ký, đăng nhập và quản lý toàn bộ hồ sơ cá nhân, đơn hàng, Trade-in, bảo hành và thiết bị yêu thích.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng (Member)</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Website</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="15-lich-hen-crm-quan-ly-tap-trung.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 15</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐⭐ Khá phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Lịch hẹn CRM — Quản lý Tập trung</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Quản lý tập trung 4 loại lịch hẹn (Thu cũ, Trade-in, Bảo hành, Click&Collect), nhắc SMS tự động và chế độ xem lịch tuần.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Khách hàng</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Nhân viên</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="16-single-customer-view-crm.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 16</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEF3C7;color:#92400E;">⭐⭐⭐ Khá phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Single Customer View — Hồ sơ 360° Khách hàng</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Nhân viên CRM xem toàn bộ lịch sử tương tác của khách trong 1 màn hình: đơn hàng, Trade-in, lịch hẹn, bảo hành.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Sales</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">CSKH</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="17-phan-quyen-nhan-vien-rbac.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 17</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEE2E2;color:#991B1B;">⭐⭐⭐⭐ Phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Phân quyền Nhân viên & Kiểm soát Truy cập (RBAC)</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Quản trị 9 nhóm quyền, ma trận hành động, giới hạn phạm vi cửa hàng và Audit Log bất biến cho mọi thao tác nhạy cảm.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Admin</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Ban Quản lý</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+        <a href="18-bao-cao-bi-va-dashboard-quan-tri.html" style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;text-decoration:none;color:inherit;display:flex;flex-direction:column;justify-content:space-between;transition:all 0.2s;box-shadow:0 2px 4px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 20px rgba(0,0,0,0.06)';" onmouseout="this.style.transform='none';this.style.boxShadow='0 2px 4px rgba(0,0,0,0.02)';">
+            <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <span style="font-size:12px;font-weight:800;color:#2563EB;background:#EFF6FF;padding:3px 8px;border-radius:6px;">FLOW 18</span>
+                    <span style="font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:12px;background:#FEE2E2;color:#991B1B;">⭐⭐⭐⭐ Phức tạp</span>
+                </div>
+                <h3 style="font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;">Báo cáo BI & Dashboard Quản trị</h3>
+                <p style="font-size:13px;color:#475569;line-height:1.5;margin-bottom:16px;">Dashboard KPI thời gian thực, báo cáo doanh số, P&L máy cũ, Trade-in, tồn kho và xuất Excel/PDF theo phân quyền.</p>
+            </div>
+            <div style="border-top:1px solid #F1F5F9;padding-top:12px;display:flex;justify-content:space-between;align-items:center;">
+                <div><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Ban Giám đốc</span><span style="background:#F1F5F9;color:#475569;font-size:11px;padding:2px 8px;border-radius:12px;margin-right:4px;">Kế toán</span><span style="color:#94A3B8;font-size:11px;">+1</span></div>
+                <span style="font-size:13px;font-weight:700;color:#2563EB;">Xem Flow →</span>
+            </div>
+        </a>
+</div>
+
+</body>
+</html>

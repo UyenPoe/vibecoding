@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow 10 - Kiểm định Kỹ thuật & Nhập kho Máy cũ | PhoneX Architecture</title>
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --secondary: #2563EB;
+            --dark: #0F172A;
+            --text: #334155;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --bg: #F8FAFC;
+            --success: #0D9488;
+            --warning: #D97706;
+            --danger: #E11D48;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+        
+        /* Top Banner */
+        .topbar { background: var(--dark); color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--secondary); }
+        .brand { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .brand-badge { background: var(--secondary); font-size: 11px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 700; }
+        .topbar-links a { color: #94A3B8; text-decoration: none; font-size: 13px; font-weight: 500; margin-left: 16px; transition: color 0.2s; }
+        .topbar-links a:hover { color: white; }
+
+        /* Layout Container */
+        .layout { display: flex; max-width: 1400px; margin: 24px auto; gap: 24px; padding: 0 16px; }
+        
+        /* Sidebar Navigation */
+        .sidebar { width: 280px; flex-shrink: 0; background: white; border-radius: 12px; border: 1px solid var(--border); padding: 16px; height: fit-content; position: sticky; top: 20px; }
+        .sidebar-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .nav-list { display: flex; flex-direction: column; gap: 4px; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .nav-item:hover { background: var(--primary-light); color: var(--secondary); }
+        .nav-item.active { background: var(--secondary); color: white; font-weight: 700; }
+        .nav-num { font-size: 11px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .nav-item.active .nav-num { background: rgba(255,255,255,0.25); color: white; }
+
+        /* Main Content */
+        .main-content { flex: 1; min-width: 0; }
+
+        /* Hero Header */
+        .flow-hero { background: white; border-radius: 14px; border: 1px solid var(--border); padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .meta-tags { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+        .badge { font-size: 12px; padding: 4px 10px; border-radius: 20px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+        .badge-flow { background: #DBEAFE; color: #1E40AF; }
+        .badge-complexity { background: #FEF3C7; color: #92400E; }
+        .badge-actor { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+
+        .flow-title { font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+        .flow-desc { font-size: 15px; color: var(--text); margin-bottom: 18px; }
+        
+        .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; background: #F8FAFC; padding: 16px; border-radius: 10px; border: 1px solid #EDF2F7; }
+        .hero-col-title { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .hero-col-text { font-size: 13.5px; color: var(--dark); }
+
+        /* Section Titles */
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin: 30px 0 16px 0; }
+        .section-title { font-size: 18px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+
+        /* Visual Timeline Step Cards */
+        .steps-container { display: flex; flex-direction: column; gap: 16px; position: relative; }
+        .step-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+        .step-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); border-color: #CBD5E1; }
+        
+        .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; border-bottom: 1px solid #F1F5F9; padding-bottom: 12px; }
+        .step-badge { width: 36px; height: 36px; border-radius: 10px; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.25); }
+        .step-title-group { flex: 1; }
+        .step-title { font-size: 16px; font-weight: 700; color: var(--dark); }
+        .step-actor { font-size: 12.5px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+        .step-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 800px) { .step-body { grid-template-columns: 1fr; } }
+
+        .action-box { background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px 14px; }
+        .system-box { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px; }
+        .box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; color: #4B5563; }
+        .system-box .box-label { color: #166534; }
+        .box-content { font-size: 13.5px; line-height: 1.5; color: var(--dark); }
+
+        /* Sync Callout */
+        .sync-card { background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%); color: white; border-radius: 12px; padding: 22px; margin-top: 24px; box-shadow: 0 6px 18px rgba(30,58,138,0.18); }
+        .sync-title { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .sync-desc { font-size: 14px; opacity: 0.95; line-height: 1.6; }
+
+        /* FAQ Edge Cases */
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+        @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; } }
+        .faq-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+        .faq-q { font-size: 13.5px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+        .faq-a { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+        /* Footer Nav Buttons */
+        .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+        .btn-prev { background: white; border: 1px solid var(--border); color: var(--dark); }
+        .btn-prev:hover { background: #F1F5F9; border-color: #CBD5E1; }
+        .btn-next { background: var(--secondary); color: white; }
+        .btn-next:hover { background: #1D4ED8; }
+        .btn-index { background: #F1F5F9; color: var(--dark); }
+        .btn-index:hover { background: #E2E8F0; }
+    
+        /* Sơ đồ Quy trình Trực quan */
+        .diagram-container {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 14px;
+        }
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        .diagram-title-icon {
+            font-size: 20px;
+        }
+        .diagram-legend {
+            display: flex;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .diagram-canvas {
+            overflow-x: auto;
+            padding: 16px 8px;
+            background: #FAF5FF;
+            background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: max-content;
+            padding: 8px 4px;
+        }
+        .diagram-node {
+            background: white;
+            border: 2px solid #CBD5E1;
+            border-radius: 10px;
+            padding: 12px 14px;
+            width: 210px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+            position: relative;
+        }
+        .diagram-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+        .node-start {
+            border-color: #2563EB;
+            background: #F8FAFC;
+        }
+        .node-system {
+            border-color: #9333EA;
+            background: #FAF5FF;
+        }
+        .node-decision {
+            border-color: #D97706;
+            background: #FFFBEB;
+            border-style: dashed;
+        }
+        .node-success {
+            border-color: #16A34A;
+            background: #F0FDF4;
+        }
+        .node-warning {
+            border-color: #DC2626;
+            background: #FEF2F2;
+        }
+
+        .d-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .d-icon {
+            font-size: 16px;
+        }
+        .d-role {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .d-index {
+            font-size: 10px;
+            color: #94A3B8;
+            font-weight: 700;
+        }
+        .d-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .d-desc {
+            font-size: 11px;
+            color: #64748B;
+            line-height: 1.4;
+        }
+        .diagram-arrow {
+            font-size: 18px;
+            font-weight: 800;
+            color: #94A3B8;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .diagram-footer {
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+
+        /* SVG Diagram Card */
+        .svg-diagram-card {
+            background: white;
+            border: 2px solid #2563EB;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+        }
+        .svg-diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 2px solid #EFF6FF;
+            padding-bottom: 12px;
+        }
+        .svg-header-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1E3A8A;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .svg-canvas-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            padding: 8px;
+            background: #FFFFFF;
+        }
+
+</style>
+
+    <!-- Mermaid.js for Interactive Flowchart Rendering -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { curve: 'basis', htmlLabels: true }
+        });
+    </script>
+</head>
+<body>
+    <div class="topbar">
+        <div class="brand">
+            <span>📱 PHONEX</span>
+            <span class="brand-badge">Architecture Flows</span>
+        </div>
+        <div class="topbar-links">
+            <a href="index.html">📋 Tổng quan 12 Flows</a>
+            <a href="../docs/Tong_quan_chuc_nang_PhoneX.docx">📄 Tải File Word</a>
+        </div>
+    </div>
+
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Danh mục 12 Quy trình</div>
+            <nav class="nav-list">
+                <a href="01-kham-pha-va-tim-kiem-san-pham.html" class="nav-item ">
+            <span class="nav-num">01</span>
+            <span class="nav-name">Khám phá & Tìm kiếm Sản phẩm</span>
+        </a><a href="02-so-sanh-dien-thoai.html" class="nav-item ">
+            <span class="nav-num">02</span>
+            <span class="nav-name">So sánh Điện thoại Song song</span>
+        </a><a href="03-mua-hang-va-thanh-toan-nhanh.html" class="nav-item ">
+            <span class="nav-num">03</span>
+            <span class="nav-name">Mua hàng & Đặt hàng Nhanh (Click & Collect)</span>
+        </a><a href="04-tra-cuu-don-hang-va-bao-mat.html" class="nav-item ">
+            <span class="nav-num">04</span>
+            <span class="nav-name">Tra cứu Đơn hàng & Bảo mật Dữ liệu</span>
+        </a><a href="05-dinh-gia-may-cu-online.html" class="nav-item ">
+            <span class="nav-num">05</span>
+            <span class="nav-name">Định giá Máy cũ Trực tuyến (Valuation Engine)</span>
+        </a><a href="06-ban-may-cu-lay-tien-mat.html" class="nav-item ">
+            <span class="nav-num">06</span>
+            <span class="nav-name">Bán Máy cũ Lấy Tiền mặt & Đặt Lịch hẹn</span>
+        </a><a href="07-thu-cu-doi-moi-trade-in.html" class="nav-item ">
+            <span class="nav-num">07</span>
+            <span class="nav-name">Thu cũ Đổi mới (Trade-in Flagship)</span>
+        </a><a href="08-tiep-nhan-va-xu-ly-bao-hanh.html" class="nav-item ">
+            <span class="nav-num">08</span>
+            <span class="nav-name">Tiếp nhận & Xử lý Bảo hành (RMA Support)</span>
+        </a><a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" class="nav-item ">
+            <span class="nav-num">09</span>
+            <span class="nav-name">Điều phối & Xử lý Đơn hàng trên CRM (Fulfillment)</span>
+        </a><a href="10-kiem-dinh-ky-thuat-va-nhap-kho-may-cu.html" class="nav-item active">
+            <span class="nav-num">10</span>
+            <span class="nav-name">Kiểm định Kỹ thuật & Nhập kho Máy cũ</span>
+        </a><a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" class="nav-item ">
+            <span class="nav-num">11</span>
+            <span class="nav-name">Quản trị Vòng đời IMEI & Tồn kho Đa điểm</span>
+        </a><a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" class="nav-item ">
+            <span class="nav-num">12</span>
+            <span class="nav-name">Động cơ Định giá Thu mua & Quản trị Khuyến mãi</span>
+        </a>
+            </nav>
+        </aside>
+
+        <!-- Main Flow View -->
+        <main class="main-content">
+            <div class="flow-hero">
+                <div class="meta-tags">
+                    <span class="badge badge-flow">FLOW 10 / 12</span>
+                    <span class="badge badge-complexity">⭐⭐⭐⭐ Phức tạp</span>
+                    <span class="badge badge-actor">Kỹ thuật viên Thẩm định</span><span class="badge badge-actor">Thủ kho</span><span class="badge badge-actor">Phần mềm CRM Kiểm định</span>
+                </div>
+                <h1 class="flow-title">Kiểm định Kỹ thuật & Nhập kho Máy cũ</h1>
+                <p class="flow-desc">Quy trình kiểm tra 18 bước phần cứng của kỹ thuật viên để định giá chính xác, gắn mã IMEI và nhập kho tái thương mại.</p>
+
+                <div class="hero-grid">
+                    <div>
+                        <div class="hero-col-title">🎯 MỤC TIÊU NGHIỆP VỤ</div>
+                        <div class="hero-col-text">Chuẩn hóa chất lượng máy thu mua đầu vào, ngăn ngừa rủi ro mua phải máy dựng, máy lỗi ẩn hoặc máy nguồn gốc bất hợp pháp.</div>
+                    </div>
+                    <div>
+                        <div class="hero-col-title">⚡ ĐIỀU KIỆN TIÊN QUYẾT</div>
+                        <div class="hero-col-text">Máy cũ được khách hàng mang đến từ Flow 06 (Bán máy) hoặc Flow 07 (Trade-in).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps Section -->
+            
+            
+    <div class="svg-diagram-card">
+  <div class="svg-diagram-header">
+    <div class="svg-header-title">
+      <span style="font-size:20px;">🗺️</span>
+      <span>SƠ ĐỒ QUY TRÌNH HÌNH ẢNH TRỰC QUAN</span>
+    </div>
+    <div style="font-size:12px; color:#64748B; font-weight:600;">
+      Hiển thị trực tiếp bằng đồ họa Vector SVG (Không cần cài đặt, xem ngay trên mọi thiết bị)
+    </div>
+  </div>
+  <div class="svg-canvas-wrapper">
+    <svg width="100%" height="280" viewBox="0 0 980 280" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif; min-width:980px;">
+      <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.08"/>
+        </filter>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B"/>
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#16A34A"/>
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626"/>
+        </marker>
+      </defs>
+      
+  <rect x="20" y="20" width="940" height="260" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="35" y="42" font-size="11" font-weight="800" fill="#64748B">QUY TRÌNH KIỂM ĐỊNH KỸ THUẬT & PHÂN ĐỊNH TUYẾN MÁY CŨ</text>
+
+  <!-- Nodes -->
+  <g transform="translate(40, 65)" filter="url(#shadow)">
+    <rect width="130" height="55" rx="8" fill="#1E3A8A"/>
+    <text x="65" y="24" font-size="11.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">1. Tiếp Nhận Máy Cũ</text>
+    <text x="65" y="41" font-size="9.5" fill="#BFDBFE" text-anchor="middle">Từ bán máy hoặc Trade-in</text>
+  </g>
+  <line x1="170" y1="92" x2="205" y2="92" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(210, 65)" filter="url(#shadow)">
+    <rect width="140" height="55" rx="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+    <text x="70" y="24" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">2. Check iCloud / Knox</text>
+    <text x="70" y="41" font-size="9.5" fill="#B91C1C" text-anchor="middle">Chống máy trộm cắp/ẩn</text>
+  </g>
+  <line x1="350" y1="92" x2="385" y2="92" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(390, 65)" filter="url(#shadow)">
+    <rect width="150" height="55" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="75" y="24" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">3. Test 18 Hạng Mục</text>
+    <text x="75" y="41" font-size="9.5" fill="#64748B" text-anchor="middle">Pin, màn, camera, main</text>
+  </g>
+  <line x1="540" y1="92" x2="575" y2="92" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(580, 65)" filter="url(#shadow)">
+    <rect width="150" height="55" rx="8" fill="#FAF5FF" stroke="#9333EA" stroke-width="1.5"/>
+    <text x="75" y="24" font-size="11" font-weight="700" fill="#6B21A8" text-anchor="middle">4. Gán IMEI & Tính Giá</text>
+    <text x="75" y="41" font-size="9.5" fill="#7E22CE" text-anchor="middle">Lưu vết giá vốn vào kho</text>
+  </g>
+
+  <!-- Arrow down to Decision -->
+  <path d="M 655 120 L 655 155" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision: Phân loại -->
+  <g transform="translate(590, 155)" filter="url(#shadow)">
+    <polygon points="65,0 130,30 65,60 0,30" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="65" y="28" font-size="10.5" font-weight="800" fill="#92400E" text-anchor="middle">Phân loại</text>
+    <text x="65" y="42" font-size="10" font-weight="800" fill="#92400E" text-anchor="middle">định tuyến máy?</text>
+  </g>
+
+  <!-- 3 Branches -->
+  <path d="M 590 185 L 490 185" fill="none" stroke="#16A34A" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <g transform="translate(320, 160)" filter="url(#shadow)">
+    <rect width="160" height="50" rx="8" fill="#15803D"/>
+    <text x="80" y="22" font-size="11" font-weight="800" fill="#FFFFFF" text-anchor="middle">✨ Bán Like New 99%</text>
+    <text x="80" y="38" font-size="9.5" fill="#BBF7D0" text-anchor="middle">Đưa lên kệ & niêm yết Web</text>
+  </g>
+
+  <path d="M 655 215 L 655 235 L 490 235" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <g transform="translate(320, 215)" filter="url(#shadow)">
+    <rect width="160" height="40" rx="8" fill="#EFF6FF" stroke="#3B82F6"/>
+    <text x="80" y="18" font-size="10.5" font-weight="700" fill="#1E40AF" text-anchor="middle">🔧 Tân Trang Sửa Chữa</text>
+    <text x="80" y="31" font-size="9" fill="#2563EB" text-anchor="middle">Thay pin, ép kính rồi bán</text>
+  </g>
+
+  <path d="M 720 185 L 790 185" fill="none" stroke="#DC2626" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <g transform="translate(795, 160)" filter="url(#shadow)">
+    <rect width="140" height="50" rx="8" fill="#FFF1F2" stroke="#E11D48"/>
+    <text x="70" y="22" font-size="10.5" font-weight="700" fill="#BE123C" text-anchor="middle">♻️ Thanh Lý Xác</text>
+    <text x="70" y="38" font-size="9" fill="#881337" text-anchor="middle">Rã lấy linh kiện</text>
+  </g>
+
+    </svg>
+  </div>
+</div>
+
+            <!-- SƠ ĐỒ QUY TRÌNH TRỰC QUAN -->
+    <div class="diagram-container">
+        <div class="diagram-header">
+            <div class="diagram-title">
+                <span class="diagram-title-icon">🗺️</span>
+                <span>SƠ ĐỒ QUY TRÌNH TRỰC QUAN (WORKFLOW DIAGRAM)</span>
+            </div>
+            <div class="diagram-legend">
+                <span class="legend-item"><span class="legend-dot" style="background:#2563EB;"></span> Khách hàng</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#9333EA;"></span> CRM / Hệ thống</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#D97706;"></span> Điểm rẽ nhánh</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#16A34A;"></span> Thành công</span>
+            </div>
+        </div>
+
+        <div class="diagram-canvas">
+            <div class="diagram-flow">
+                
+        <div class="diagram-node node-start" id="diag-n1">
+            <div class="d-header">
+                <span class="d-icon">📱</span>
+                <span class="d-role" style="background:#DBEAFE; color:#1E40AF;">Khách hàng</span>
+                <span class="d-index">#1</span>
+            </div>
+            <div class="d-title">Mang Máy Cũ Đến Quầy Kỹ thuật</div>
+            <div class="d-desc">Khởi động quy trình tiếp nhận thẩm định</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n2">
+            <div class="d-header">
+                <span class="d-icon">🔒</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Kỹ thuật viên</span>
+                <span class="d-index">#2</span>
+            </div>
+            <div class="d-title">Kiểm tra Pháp lý: iCloud / Knox / MDM</div>
+            <div class="d-desc">Chặn tuyệt đối máy trộm cắp, yêu cầu thoát tài khoản</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n3">
+            <div class="d-header">
+                <span class="d-icon">📋</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Kỹ thuật viên</span>
+                <span class="d-index">#3</span>
+            </div>
+            <div class="d-title">Chạy Checklist Test 18 Hạng mục</div>
+            <div class="d-desc">Vỏ, Màn hình, Cảm ứng, Face ID, Camera, Pin, Sóng</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-system" id="diag-n4">
+            <div class="d-header">
+                <span class="d-icon">🧮</span>
+                <span class="d-role" style="background:#F3E8FF; color:#6B21A8;">CRM Pricing</span>
+                <span class="d-index">#4</span>
+            </div>
+            <div class="d-title">Hệ thống Tự Động Tính Giá Chốt</div>
+            <div class="d-desc">Căn cứ vào danh sách lỗi để trừ tiền theo quy chuẩn</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n5">
+            <div class="d-header">
+                <span class="d-icon">✍️</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Khách & Nhân viên</span>
+                <span class="d-index">#5</span>
+            </div>
+            <div class="d-title">Khách Duyệt Giá ➔ Ký Biên bản</div>
+            <div class="d-desc">In biên bản thỏa thuận mua bán máy cũ</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-system" id="diag-n6">
+            <div class="d-header">
+                <span class="d-icon">🏷️</span>
+                <span class="d-role" style="background:#F3E8FF; color:#6B21A8;">CRM Kho</span>
+                <span class="d-index">#6</span>
+            </div>
+            <div class="d-title">Gán Mã IMEI Độc bản Mới</div>
+            <div class="d-desc">Lưu vết giá vốn = giá thu; trạng thái 'Chờ phân loại'</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-decision" id="diag-n7">
+            <div class="d-header">
+                <span class="d-icon">🔀</span>
+                <span class="d-role" style="background:#FEF3C7; color:#92400E;">Phân loại</span>
+                <span class="d-index">#7</span>
+            </div>
+            <div class="d-title">Định tuyến Tái thương mại?</div>
+            <div class="d-desc">Xác định số phận của chiếc máy sau thu mua</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-success" id="diag-n8a">
+            <div class="d-header">
+                <span class="d-icon">✨</span>
+                <span class="d-role" style="background:#DCFCE7; color:#166534;">Loại 1</span>
+                <span class="d-index">#8</span>
+            </div>
+            <div class="d-title">Máy Đẹp Chuẩn: Đăng bán Like New 99%</div>
+            <div class="d-desc">Vệ sinh, đưa lên kệ và hiển thị trên Web</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n8b">
+            <div class="d-header">
+                <span class="d-icon">🔧</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Loại 2</span>
+                <span class="d-index">#9</span>
+            </div>
+            <div class="d-title">Lỗi Linh kiện Nhẹ: Tân trang Sửa chữa</div>
+            <div class="d-desc">Thay pin / ép kính, hạch toán thêm chi phí</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-warning" id="diag-n8c">
+            <div class="d-header">
+                <span class="d-icon">♻️</span>
+                <span class="d-role" style="background:#FEE2E2; color:#991B1B;">Loại 3</span>
+                <span class="d-index">#10</span>
+            </div>
+            <div class="d-title">Hỏng Nặng: Bán Thanh lý Xác linh kiện</div>
+            <div class="d-desc">Tách rã linh kiện phục vụ bảo hành</div>
+        </div>
+        
+            </div>
+        </div>
+
+        <div class="diagram-footer">
+            💡 <em>Ghi chú: Sơ đồ trên tóm tắt toàn bộ luồng rẽ nhánh và điểm chuyển giao dữ liệu giữa Website và CRM. Xem bảng mô tả chi tiết từng bước ở ngay bên dưới.</em>
+        </div>
+    </div>
+    
+
+            <!-- SƠ ĐỒ CHUẨN UML / MERMAID -->
+            <div class="diagram-container" style="margin-top: -10px; margin-bottom: 24px;">
+                <div class="diagram-header" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
+                    <div class="diagram-title" style="font-size:14px; color:#475569;">
+                        <span>📐 Sơ đồ Chuẩn UML / Mermaid Logic</span>
+                    </div>
+                    <button onclick="var m = document.getElementById('mermaid-box-10'); m.style.display = (m.style.display === 'none' ? 'block' : 'none');" style="background:#F1F5F9; border:1px solid #CBD5E1; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Bật / Ẩn sơ đồ chi tiết</button>
+                </div>
+                <div id="mermaid-box-10" style="display:none; margin-top:14px; padding:16px; background:#F8FAFC; border-radius:8px; border:1px solid #E2E8F0; text-align:center;">
+                    <pre class="mermaid">
+flowchart TD
+    Start(["🚀 Bắt đầu"]) --> Step1["📱 1. Khách mang máy cũ đến Quầy Kỹ thuật"]
+    Step1 --> Step2["🔒 2. Kiểm tra iCloud, Knox, MDM, nguồn gốc"]
+    Step2 --> Step3["📋 3. Chạy Checklist test 18 hạng mục phần cứng"]
+    Step3 --> Step4["🧮 4. CRM Pricing tự động tính giá chốt theo lỗi"]
+    Step4 --> Step5["✍️ 5. Khách duyệt giá & Ký biên bản nghiệm thu"]
+    Step5 --> Step6["🏷️ 6. Cấp mã IMEI độc bản & Nhập kho CRM"]
+    Step6 --> Step7{"🔀 7. Phân loại định tuyến sau thu mua?"}
+    Step7 -- "Máy đẹp chuẩn" --> Step8a["✨ Đăng bán Like New 99% trên Web"]
+    Step7 -- "Lỗi linh kiện nhẹ" --> Step8b["🔧 Chuyển phân xưởng sửa chữa tân trang"]
+    Step7 -- "Hỏng nặng" --> Step8c["♻️ Bán thanh lý xác linh kiện"]
+    Step8a --> End(["🏁 Tái thương mại"])
+                    </pre>
+                </div>
+            </div>
+            
+<div class="section-header">
+                <div class="section-title">
+                    <span>⚡ Tiến trình Thực thi Từng bước</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">6 Bước nghiệp vụ</div>
+            </div>
+
+            <div class="steps-container">
+                
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">01</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Kiểm tra Pháp lý & Nguồn gốc Máy</h3>
+                    <div class="step-actor"><span class="actor-icon">🛠️</span> Kỹ thuật viên</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Kiểm tra số IMEI/Serial trên hệ thống nhà sản xuất; kiểm tra tình trạng khóa tài khoản (iCloud ẩn, Knox, MDM công ty, blacklist mất cắp).</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Yêu cầu khách đăng xuất hoàn toàn tài khoản cá nhân và khôi phục cài đặt gốc (Reset Factory).</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">02</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Thực hiện Bài Test 18 Hạng mục Phần cứng</h3>
+                    <div class="step-actor"><span class="actor-icon">🛠️</span> Kỹ thuật viên</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Kiểm tra chi tiết theo checklist điện tử trên CRM: Ngoại quan thân vỏ, Màn hình & Cảm ứng, Face ID/Touch ID, Cụm camera trước/sau, Micro & Loa trong/ngoài, Cổng sạc & Kết nối sóng Wifi/Bluetooth/5G, Dung lượng pin thực tế, Cảm biến tiệm cận & con quay hồi chuyển.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Kỹ thuật viên tích chọn từng hạng mục Đạt / Lỗi trên màn hình CRM Kiểm định.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">03</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">CRM Tự động Tính toán Mức giá Chốt</h3>
+                    <div class="step-actor"><span class="actor-icon">🛠️</span> Hệ thống CRM</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Dựa trên các lỗi được kỹ thuật viên đánh dấu, động cơ Pricing Engine tự động trừ tiền theo bảng quy tắc.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Hiển thị 'Mức giá thu mua đề xuất cuối cùng' kèm bảng liệt kê chi tiết các khoản khấu trừ để giải thích cho khách.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">04</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Khách hàng Chốt giá & Ký biên bản</h3>
+                    <div class="step-actor"><span class="actor-icon">🏪</span> Khách & Nhân viên</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Nhân viên giải thích rõ các lỗi đã phát hiện. Khi khách đồng ý bán, hệ thống in Phiếu biên bản thẩm định có chữ ký xác nhận của cả hai bên.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Ghi nhận hồ sơ thu mua hoàn tất; tự động xuất phiếu chi tài chính.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">05</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Gán mã IMEI & Khởi tạo Hồ sơ Thiết bị</h3>
+                    <div class="step-actor"><span class="actor-icon">🛠️</span> Kỹ thuật viên</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Chiếc máy chính thức được cấp 1 hồ sơ thiết bị độc bản trên CRM theo số IMEI, lưu trữ toàn bộ lịch sử: Nguồn gốc thu từ ai, ngày giờ thu, kết quả test và giá nhập.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Ghi nhận trạng thái IMEI: 'Mới nhập kho - Chờ phân loại'.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">06</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Phân loại & Định tuyến Sau thu mua</h3>
+                    <div class="step-actor"><span class="actor-icon">📦</span> Kỹ thuật viên & Thủ kho</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Máy được phân luồng:<br>- Nhánh 1: Máy đẹp chuẩn ➔ Vệ sinh, dán nhãn, chuyển sang trạng thái 'Sẵn sàng bán' (Like New 99%).<br>- Nhánh 2: Máy có lỗi linh kiện nhỏ ➔ Chuyển sang trạng thái 'Chờ sửa chữa tân trang' (thay pin/thay màn).<br>- Nhánh 3: Máy hỏng nặng ➔ Bán thanh lý xác linh kiện.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Cập nhật trạng thái máy trên CRM và hiển thị lên danh mục máy cũ của Website (nếu là Nhánh 1).</div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+
+            <!-- Sync Block -->
+            <div class="sync-card">
+                <div class="sync-title">🔄 LIÊN THÔNG DỮ LIỆU THỜI GIAN THỰC (WEBSITE ↔ CRM)</div>
+                <div class="sync-desc">Biên bản kiểm định lưu vết vĩnh viễn trên CRM. Máy ở trạng thái 'Sẵn sàng bán' sẽ lập tức xuất hiện trên Website mục 'Điện thoại cũ' của chi nhánh đó.</div>
+            </div>
+
+            <!-- Edge Cases Section -->
+            <div class="section-header" style="margin-top: 28px;">
+                <div class="section-title">
+                    <span>🛡️ Tình huống Xử lý Ngoại lệ & Rủi ro</span>
+                </div>
+            </div>
+            <div class="faq-grid">
+                
+        <div class="faq-item">
+            <div class="faq-q">❓ Kỹ thuật viên kiểm tra sơ sài bỏ sót lỗi?</div>
+            <div class="faq-a">👉 <strong>Xử lý:</strong> CRM lưu định danh nhân viên thực hiện kiểm định. Nếu máy bán ra bị khách bảo hành lỗi cũ, hệ thống truy vết trách nhiệm người duyệt.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">❓ Máy bị trùng IMEI đã có trong cơ sở dữ liệu?</div>
+            <div class="faq-a">👉 <strong>Xử lý:</strong> Hệ thống chặn tạo mới và cảnh báo đỏ: 'Cảnh báo: IMEI này đã từng được thu mua hoặc tồn tại trong kho'.</div>
+        </div>
+        
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="footer-nav"><a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" class="btn btn-prev">← Flow 09: Điều phối & Xử lý Đơn hàng trên CRM (Fulfillment)</a><a href="index.html" class="btn btn-index">📋 Danh sách 12 Flows</a><a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" class="btn btn-next">Flow 11: Quản trị Vòng đời IMEI & Tồn kho Đa điểm →</a></div>
+        </main>
+    </div>
+</body>
+</html>

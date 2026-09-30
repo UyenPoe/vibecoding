@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10. Quy trình Quản lý Lịch hẹn (CRM)</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true, theme: 'default', flowchart: { curve: 'basis' } });</script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        /* ── TOP NAV BAR ── */
+        .top-nav {
+            width: 100%;
+            max-width: 960px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: #fff;
+            color: #1e293b;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 1.5px solid #e2e8f0;
+            font-size: 13px;
+            transition: all 0.2s;
+            max-width: 260px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .nav-btn:hover { border-color: #0b5bb5; background: #eff6ff; box-shadow: 0 2px 8px rgba(11,91,181,0.12); }
+        .nav-arrow { font-size: 22px; color: #0b5bb5; font-weight: 700; line-height: 1; flex-shrink: 0; }
+        .nav-info { display: flex; flex-direction: column; overflow: hidden; }
+        .nav-label { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; }
+        .nav-title { font-size: 13px; font-weight: 600; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nav-placeholder { width: 120px; }
+        .home-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 16px;
+            background: #0b5bb5;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(11,91,181,0.25);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .home-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+        /* ── FILE NAME BAR ── */
+        .filename-bar {
+            width: 100%;
+            max-width: 960px;
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 8px 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .filename-bar .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink:0; }
+        .filename-bar .dot-r { background: #f87171; }
+        .filename-bar .dot-y { background: #fbbf24; }
+        .filename-bar .dot-g { background: #4ade80; }
+        .filename-bar .fname {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #94a3b8;
+            flex: 1;
+            text-align: center;
+        }
+        .filename-bar .fname span { color: #e2e8f0; font-weight: 600; }
+        /* ── CARD ── */
+        .container {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            max-width: 960px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #0b5bb5 0%, #1d4ed8 100%);
+            color: white;
+            padding: 26px 32px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.22);
+            padding: 3px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .progress-track {
+            flex: 1;
+            height: 5px;
+            background: rgba(255,255,255,0.25);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: rgba(255,255,255,0.85);
+            border-radius: 10px;
+            width: 90%;
+        }
+        .progress-text { font-size: 12px; opacity: 0.8; white-space: nowrap; }
+        .card-header h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+        .card-header .desc { margin-top: 8px; font-size: 14px; opacity: 0.88; line-height: 1.6; }
+        .body { padding: 28px 32px; }
+        .section-title {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.2px; color: #64748b; margin-bottom: 12px; margin-top: 24px;
+        }
+        .section-title:first-child { margin-top: 0; }
+        .steps-list { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 8px; }
+        .steps-list li {
+            counter-increment: step;
+            display: flex; align-items: flex-start; gap: 12px;
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
+            padding: 10px 14px; font-size: 14px; line-height: 1.5; color: #334155;
+        }
+        .steps-list li::before {
+            content: counter(step);
+            min-width: 24px; height: 24px;
+            background: #0b5bb5; color: white;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; font-size: 12px; font-weight: 700;
+            flex-shrink: 0; margin-top: 1px;
+        }
+        .diagram-box {
+            background: #fafbfc; border: 1px solid #e2e8f0;
+            border-radius: 12px; padding: 24px 16px; text-align: center;
+            overflow-x: auto;
+        }
+        @media (max-width: 640px) {
+            .body { padding: 20px 16px; }
+            .card-header { padding: 20px 16px; }
+            .card-header h1 { font-size: 18px; }
+            .top-nav { flex-wrap: nowrap; }
+            .nav-btn { max-width: 130px; padding: 8px 10px; }
+            .nav-title { font-size: 11px; }
+            .filename-bar .fname { font-size: 11px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAV BAR -->
+    <div class="top-nav">
+        <a href="09_Quy_trinh_Thu_mua_noi_bo.html" class="nav-btn prev-btn">
+            <span class="nav-arrow">‹</span>
+            <span class="nav-info"><span class="nav-label">Trước</span><span class="nav-title">09. Quy trình Thu mua máy cũ (Nội bộ CRM)</span></span>
+        </a>
+        <a href="index.html" class="home-btn">&#8962; Xem danh sách</a>
+        <a href="11_Quy_trinh_Bao_cao_Dashboard.html" class="nav-btn next-btn">
+            <span class="nav-info" style="text-align:right"><span class="nav-label">Tiếp theo</span><span class="nav-title">11. Báo cáo & Dashboard CRM</span></span>
+            <span class="nav-arrow">›</span>
+        </a>
+    </div>
+
+    <!-- FILE NAME BAR -->
+    <div class="filename-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="fname">flows / <span>10_Quy_trinh_Lich_hen.html</span></div>
+    </div>
+
+    <!-- MAIN CARD -->
+    <div class="container">
+        <div class="card-header">
+            <div class="badge">Quy trình số 10 / 11</div>
+            <h1>Quy trình Quản lý Lịch hẹn (CRM)</h1>
+            <p class="desc">CRM tập trung quản lý lịch hẹn cho tất cả loại dịch vụ — thu mua, Trade-in, bảo hành và nhận hàng. Hỗ trợ xem lịch theo ngày hoặc tuần.</p>
+            <div class="progress-bar">
+                <div class="progress-track"><div class="progress-fill"></div></div>
+                <span class="progress-text">10/11 quy trình</span>
+            </div>
+        </div>
+        <div class="body">
+            <div class="section-title">Các bước thực hiện</div>
+            <ol class="steps-list"><li>Lịch hẹn được <b>tạo từ Website</b> (khách tự đặt) hoặc <b>nhân viên CRM tạo</b> khi gọi điện</li><li>Nhân viên <b>xác nhận lịch và phân công</b> người phụ trách</li><li>Hệ thống <b>tự động nhắc hẹn</b> cho khách trước giờ hẹn</li><li>Khách đến — nhân viên <b>tiếp nhận theo đúng loại dịch vụ</b></li><li><b>Chuyển sang quy trình tương ứng</b> — Thu mua / Trade-in / Bảo hành / Giao hàng</li><li><b>Đóng lịch hẹn</b> — Hoàn tất hoặc Hủy (khách không đến)</li></ol>
+            <div class="section-title">Sơ đồ trực quan</div>
+            <div class="diagram-box">
+                <div class="mermaid">
+graph TD
+    A["📅 Tạo lịch hẹn từ Website hoặc CRM"] --> B["👨‍💼 Phân công nhân viên & Cửa hàng"]
+    B --> C["🔔 Hệ thống gửi nhắc hẹn tự động"]
+    C --> D{{"Khách đến?"}}
+    D -- "❌ Vắng mặt" --> E["❌ Hủy lịch / Đặt lịch lại"]
+    D -- "✅ Đến" --> F{{"Loại dịch vụ?"}}
+    F -- "Thu mua" --> G["➡️ Quy trình Thu mua"]
+    F -- "Trade-in" --> H["➡️ Quy trình Trade-in"]
+    F -- "Bảo hành" --> I["➡️ Quy trình Bảo hành"]
+    F -- "Nhận hàng" --> J["➡️ Xuất kho & Bàn giao"]
+    G --> K(["✅ Đóng lịch hẹn"])
+    H --> K
+    I --> K
+    J --> K
+    style A fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    style F fill:#fef9c3,stroke:#ca8a04,color:#713f12
+    style K fill:#bbf7d0,stroke:#15803d,color:#14532d
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

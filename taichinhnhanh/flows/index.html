@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Quy trình Hệ thống</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; min-height: 100vh; padding: 40px 16px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); max-width: 800px; width: 100%; overflow: hidden; }
+        .header { background: linear-gradient(135deg, #0b5bb5, #1d4ed8); color: white; padding: 32px; text-align: center; }
+        .header h1 { font-size: 24px; font-weight: 700; }
+        .header p { margin-top: 8px; opacity: 0.85; font-size: 14px; }
+        .list { padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+        .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #94a3b8; padding: 12px 4px 4px; }
+        a.item { display: flex; align-items: center; gap: 14px; background: #f8fafc; border: 1.5px solid #e2e8f0; padding: 13px 16px; border-radius: 10px; text-decoration: none; color: #1e293b; transition: all 0.2s; }
+        a.item:hover { border-color: #0b5bb5; background: #eff6ff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(11,91,181,0.1); }
+        .num { min-width: 34px; height: 34px; background: #0b5bb5; color: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+        .item-text { flex: 1; font-size: 14px; font-weight: 500; }
+        .item-arrow { color: #94a3b8; font-size: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📋 Danh sách Quy trình Hệ thống</h1>
+        <p>Chọn quy trình để xem sơ đồ trực quan chi tiết</p>
+    </div>
+    <div class="list">
+        <div class="section-label">Website – Dành cho Khách hàng</div>
+        <a href="01_Quy_trinh_Dat_hang.html" class="item"><div class="num">01</div><div class="item-text">Quy trình Đặt hàng trực tuyến</div><span class="item-arrow">›</span></a>
+        <a href="02_Quy_trinh_Dinh_gia_may_cu.html" class="item"><div class="num">02</div><div class="item-text">Quy trình Định giá máy cũ trực tuyến</div><span class="item-arrow">›</span></a>
+        <a href="03_Quy_trinh_Ban_may_cu.html" class="item"><div class="num">03</div><div class="item-text">Quy trình Bán máy cũ lấy tiền mặt</div><span class="item-arrow">›</span></a>
+        <a href="04_Quy_trinh_Thu_cu_doi_moi.html" class="item"><div class="num">04</div><div class="item-text">Quy trình Thu cũ đổi mới (Trade-in)</div><span class="item-arrow">›</span></a>
+        <a href="05_Quy_trinh_Bao_hanh.html" class="item"><div class="num">05</div><div class="item-text">Quy trình Xử lý Bảo hành & Đổi trả</div><span class="item-arrow">›</span></a>
+        <a href="06_Quy_trinh_Vong_doi_thiet_bi_cu.html" class="item"><div class="num">06</div><div class="item-text">Vòng đời Quản lý Thiết bị Cũ</div><span class="item-arrow">›</span></a>
+        <a href="07_Quy_trinh_Phe_duyet_tap_trung.html" class="item"><div class="num">07</div><div class="item-text">Quy trình Phê duyệt tập trung</div><span class="item-arrow">›</span></a>
+        <a href="08_Quy_trinh_Click_Collect.html" class="item"><div class="num">08</div><div class="item-text">Quy trình Click & Collect</div><span class="item-arrow">›</span></a>
+        <div class="section-label">CRM – Vận hành Nội bộ</div>
+        <a href="09_Quy_trinh_Thu_mua_noi_bo.html" class="item"><div class="num">09</div><div class="item-text">Quy trình Thu mua máy cũ (Nội bộ CRM)</div><span class="item-arrow">›</span></a>
+        <a href="10_Quy_trinh_Lich_hen.html" class="item"><div class="num">10</div><div class="item-text">Quy trình Quản lý Lịch hẹn (CRM)</div><span class="item-arrow">›</span></a>
+        <a href="11_Quy_trinh_Bao_cao_Dashboard.html" class="item"><div class="num">11</div><div class="item-text">Báo cáo & Dashboard CRM</div><span class="item-arrow">›</span></a>
+    </div>
+</div>
+</body>
+</html>

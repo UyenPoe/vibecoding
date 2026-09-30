@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow 17 - Phân quyền Nhân viên & Kiểm soát Truy cập (RBAC) | PhoneX CRM</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:'default', flowchart:{curve:'basis'}});</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+body{background:#F8FAFC;color:#334155;line-height:1.6;padding-bottom:60px;}
+.topbar{background:#0F172A;color:white;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #2563EB;}
+.brand{font-size:18px;font-weight:800;letter-spacing:0.5px;display:flex;align-items:center;gap:8px;}
+.brand-badge{background:#2563EB;font-size:11px;padding:2px 8px;border-radius:4px;text-transform:uppercase;font-weight:700;}
+.topbar-links a{color:#94A3B8;text-decoration:none;font-size:13px;font-weight:500;margin-left:16px;transition:color 0.2s;}
+.topbar-links a:hover{color:white;}
+.layout{display:flex;max-width:1400px;margin:24px auto;gap:24px;padding:0 16px;}
+.sidebar{width:280px;flex-shrink:0;background:white;border-radius:12px;border:1px solid #E2E8F0;padding:16px;height:fit-content;position:sticky;top:20px;max-height:90vh;overflow-y:auto;}
+.sidebar-title{font-size:13px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
+.main-content{flex:1;min-width:0;}
+@media(max-width:900px){.layout{flex-direction:column;}.sidebar{width:100%;position:static;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="brand-badge">PhoneX</span> Flow Documentation</div>
+  <div class="topbar-links"><a href="index.html">← Tổng quan</a><a href="https://github.com" style="display:none">GitHub</a></div>
+</div>
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-title">📋 Tất cả Flow (1–18)</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <a href="01-kham-pha-va-tim-kiem-san-pham.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">01</span>Khám phá & Tìm kiếm</a>
+<a href="02-so-sanh-dien-thoai.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">02</span>So sánh Điện thoại</a>
+<a href="03-mua-hang-va-thanh-toan-nhanh.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">03</span>Mua hàng & Checkout</a>
+<a href="04-tra-cuu-don-hang-va-bao-mat.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">04</span>Tra cứu Đơn hàng</a>
+<a href="05-dinh-gia-may-cu-online.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">05</span>Định giá Máy cũ Online</a>
+<a href="06-ban-may-cu-lay-tien-mat.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">06</span>Bán Máy cũ Tiền mặt</a>
+<a href="07-thu-cu-doi-moi-trade-in.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">07</span>Trade-in Thu cũ Đổi mới</a>
+<a href="08-tiep-nhan-va-xu-ly-bao-hanh.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">08</span>Tiếp nhận Bảo hành</a>
+<a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">09</span>Điều phối Đơn hàng CRM</a>
+<a href="10-kiem-dinh-ky-thuat-va-nhap-kho-may-cu.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">10</span>Kiểm định Nhập kho Máy cũ</a>
+<a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">11</span>Quản trị IMEI & Tồn kho</a>
+<a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">12</span>Pricing Engine & Khuyến mãi</a>
+<a href="13-click-and-collect-dat-giu-may-tai-cua-hang.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">13</span>Click & Collect</a>
+<a href="14-tai-khoan-khach-hang-va-member-portal.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">14</span>Tài khoản Member Portal</a>
+<a href="15-lich-hen-crm-quan-ly-tap-trung.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">15</span>Lịch hẹn CRM</a>
+<a href="16-single-customer-view-crm.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">16</span>Single Customer View</a>
+<a href="17-phan-quyen-nhan-vien-rbac.html" class="active" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#fff;font-size:13px;font-weight:700;background:#2563EB;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(255,255,255,0.25);padding:2px 6px;border-radius:4px;font-weight:700;color:white;">17</span>Phân quyền RBAC</a>
+<a href="18-bao-cao-bi-va-dashboard-quan-tri.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">18</span>Báo cáo BI & Dashboard</a>
+    </div>
+  </div>
+  <div class="main-content">
+    <!-- Hero -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:28px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.02);">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:700;background:#DBEAFE;color:#1E40AF;">FLOW 17</span>
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:700;background:#FEE2E2;color:#991B1B;">⭐⭐⭐⭐ Phức tạp</span>
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">📖 Nguồn: Mục 31 – 32</span>
+      </div>
+      <h1 style="font-size:26px;font-weight:800;color:#0F172A;margin-bottom:8px;">Phân quyền Nhân viên & Kiểm soát Truy cập (RBAC)</h1>
+      <p style="font-size:15px;color:#334155;margin-bottom:18px;">Quản trị viên cấu hình 9 nhóm quyền, gán nhân viên vào nhóm, giới hạn phạm vi dữ liệu theo cửa hàng và theo dõi mọi hành động qua Audit Log.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;background:#F8FAFC;padding:16px;border-radius:10px;border:1px solid #EDF2F7;">
+        <div>
+          <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🎯 Mục tiêu</div>
+          <div style="font-size:13.5px;color:#0F172A;">Đảm bảo mỗi nhân viên chỉ thấy và làm được đúng những gì thuộc quyền hạn của mình, bảo vệ dữ liệu kinh doanh nhạy cảm và ngăn ngừa thao túng giá/kho.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">👥 Các bên tham gia</div>
+          <div style="font-size:13.5px;color:#0F172A;"><span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Quản trị viên (Admin)</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Ban Quản lý</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Nhân viên các bộ phận</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Hệ thống CRM</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mermaid Diagram -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:16px;">📊 Sơ đồ Quy trình</div>
+      <div class="mermaid">
+flowchart TD
+    Start(["🚀 Bắt đầu"]) --> Step1["🏢 1. Admin tạo tài khoản Nhân viên mới"]
+    Step1 --> Step2["🔐 2. Gán Nhóm Quyền (1 trong 9 Role)"]
+    Step2 --> Step3["🗺️ 3. Giới hạn phạm vi Cửa hàng được phép"]
+    Step3 --> Step4["📋 4. Xem / Tùy chỉnh Ma trận Quyền hạn chi tiết"]
+    Step4 --> Step5["✅ Nhân viên đăng nhập — chỉ thấy đúng quyền của mình"]
+    Step5 --> Step6["📜 5. Mọi hành động → Audit Log tự động, bất biến"]
+    Step6 --> Step7{"Thay đổi nhân sự?"}
+    Step7 -- "Chuyển bộ phận" --> Step8a["🔄 Cập nhật Role & Phạm vi cửa hàng"]
+    Step7 -- "Nghỉ việc" --> Step8b["🚫 Vô hiệu hóa tài khoản tức thì"]
+    Step8a --> End(["🏁 Phân quyền an toàn & Kiểm soát đầy đủ"])
+    Step8b --> End
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:20px;">🔢 Các Bước Chi tiết</div>
+      <div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏢</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 1: Tạo Nhân viên mới</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Quản trị viên (Admin)</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Tạo tài khoản: Họ tên, SĐT/email, bộ phận, cửa hàng phụ trách. Cấp thông tin đăng nhập tạm thời.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Tài khoản nhân viên được tạo với quyền mặc định tối thiểu.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔐</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 2: Gán Nhóm Quyền (Role)</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Quản trị viên / Ban Quản lý</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Chọn 1 trong 9 nhóm quyền: Admin, Ban Quản lý, Quản lý Cửa hàng, Bán hàng, Thu mua, Kho, Kỹ thuật, CSKH, Kế toán.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Nhân viên tự động được cấp/từ chối quyền theo matrix của nhóm.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🗺️</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 3: Giới hạn Phạm vi Cửa hàng</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Quản trị viên</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Gán nhân viên vào 1 hoặc nhiều cửa hàng cụ thể. Nhân viên chỉ xem được dữ liệu (đơn hàng, kho, lịch hẹn) của cửa hàng mình.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Data isolation theo chi nhánh.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📋</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 4: Ma trận Quyền hạn chi tiết</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Quản trị viên</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Xem/chỉnh ma trận quyền: mỗi nhóm × mỗi module × hành động (Xem / Tạo / Sửa / Xóa / Phê duyệt / Xuất). Tùy chỉnh ngoại lệ cho cá nhân nếu cần.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Bộ quyền hạn chính xác, tối thiểu hóa rủi ro.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📜</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 5: Audit Log — Nhật ký mọi hành động</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Hệ thống tự động</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Mọi hành động nhạy cảm được ghi lại tự động và không thể xóa: Sửa giá thu mua, xuất kho IMEI, hủy đơn, điều chỉnh phân quyền. Lưu: Ai — Khi nào — Làm gì — Dữ liệu cũ — Dữ liệu mới.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Hồ sơ kiểm toán không thể bị giả mạo.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔄</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 6: Thay đổi / Thu hồi Quyền</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Quản trị viên / Ban Quản lý</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Khi nhân viên chuyển bộ phận hoặc nghỉ việc: cập nhật role hoặc vô hiệu hóa tài khoản tức thì. Mọi phiên đăng nhập bị hủy ngay lập tức.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Bảo mật tức thời — không có cửa sổ rủi ro.</div>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <!-- Sync Note -->
+    <div style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:24px;">
+      <div style="font-size:15px;font-weight:700;color:#1E40AF;margin-bottom:8px;">🔄 Đồng bộ Website ↔ CRM</div>
+      <div style="font-size:14px;color:#1E3A8A;">Ma trận phân quyền được áp dụng tức thì trên toàn hệ thống — không cần khởi động lại. Audit Log được ghi song song với mọi transaction, không ảnh hưởng đến hiệu năng hoạt động.</div>
+    </div>
+
+    <!-- Edge Cases -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:16px;">⚠️ Trường hợp Ngoại lệ</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Nhân viên cố truy cập module không có quyền</div>
+  <div style="font-size:13px;color:#7C2D12;">Hệ thống từ chối và ghi log cảnh báo.</div>
+</div>
+<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Admin quên mật khẩu</div>
+  <div style="font-size:13px;color:#7C2D12;">Cơ chế khôi phục đặc biệt qua OTP + xác minh 2 bước.</div>
+</div>
+<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Nhân viên kiêm nhiệm 2 vai trò</div>
+  <div style="font-size:13px;color:#7C2D12;">Gán 2 nhóm quyền cùng lúc — hệ thống tính hợp nhất quyền cao nhất.</div>
+</div>
+      </div>
+    </div>
+
+    <!-- Footer Nav -->
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <a href="16-single-customer-view-crm.html" style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid #E2E8F0;color:#334155;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;">← Flow 16: Single Customer View</a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid #E2E8F0;color:#334155;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;">🏠 Về Trang chủ</a>
+      <a href="18-bao-cao-bi-va-dashboard-quan-tri.html" style="display:inline-flex;align-items:center;gap:8px;background:#2563EB;color:white;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:700;">Flow 18: Báo cáo BI & Dashboard →</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

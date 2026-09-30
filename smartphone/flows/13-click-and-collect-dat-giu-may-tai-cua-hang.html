@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow 13 - Click & Collect — Đặt Giữ Máy Tại Cửa Hàng | PhoneX CRM</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true, theme:'default', flowchart:{curve:'basis'}});</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+body{background:#F8FAFC;color:#334155;line-height:1.6;padding-bottom:60px;}
+.topbar{background:#0F172A;color:white;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #2563EB;}
+.brand{font-size:18px;font-weight:800;letter-spacing:0.5px;display:flex;align-items:center;gap:8px;}
+.brand-badge{background:#2563EB;font-size:11px;padding:2px 8px;border-radius:4px;text-transform:uppercase;font-weight:700;}
+.topbar-links a{color:#94A3B8;text-decoration:none;font-size:13px;font-weight:500;margin-left:16px;transition:color 0.2s;}
+.topbar-links a:hover{color:white;}
+.layout{display:flex;max-width:1400px;margin:24px auto;gap:24px;padding:0 16px;}
+.sidebar{width:280px;flex-shrink:0;background:white;border-radius:12px;border:1px solid #E2E8F0;padding:16px;height:fit-content;position:sticky;top:20px;max-height:90vh;overflow-y:auto;}
+.sidebar-title{font-size:13px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;}
+.main-content{flex:1;min-width:0;}
+@media(max-width:900px){.layout{flex-direction:column;}.sidebar{width:100%;position:static;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="brand"><span class="brand-badge">PhoneX</span> Flow Documentation</div>
+  <div class="topbar-links"><a href="index.html">← Tổng quan</a><a href="https://github.com" style="display:none">GitHub</a></div>
+</div>
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-title">📋 Tất cả Flow (1–18)</div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <a href="01-kham-pha-va-tim-kiem-san-pham.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">01</span>Khám phá & Tìm kiếm</a>
+<a href="02-so-sanh-dien-thoai.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">02</span>So sánh Điện thoại</a>
+<a href="03-mua-hang-va-thanh-toan-nhanh.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">03</span>Mua hàng & Checkout</a>
+<a href="04-tra-cuu-don-hang-va-bao-mat.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">04</span>Tra cứu Đơn hàng</a>
+<a href="05-dinh-gia-may-cu-online.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">05</span>Định giá Máy cũ Online</a>
+<a href="06-ban-may-cu-lay-tien-mat.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">06</span>Bán Máy cũ Tiền mặt</a>
+<a href="07-thu-cu-doi-moi-trade-in.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">07</span>Trade-in Thu cũ Đổi mới</a>
+<a href="08-tiep-nhan-va-xu-ly-bao-hanh.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">08</span>Tiếp nhận Bảo hành</a>
+<a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">09</span>Điều phối Đơn hàng CRM</a>
+<a href="10-kiem-dinh-ky-thuat-va-nhap-kho-may-cu.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">10</span>Kiểm định Nhập kho Máy cũ</a>
+<a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">11</span>Quản trị IMEI & Tồn kho</a>
+<a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">12</span>Pricing Engine & Khuyến mãi</a>
+<a href="13-click-and-collect-dat-giu-may-tai-cua-hang.html" class="active" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#fff;font-size:13px;font-weight:700;background:#2563EB;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(255,255,255,0.25);padding:2px 6px;border-radius:4px;font-weight:700;color:white;">13</span>Click & Collect</a>
+<a href="14-tai-khoan-khach-hang-va-member-portal.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">14</span>Tài khoản Member Portal</a>
+<a href="15-lich-hen-crm-quan-ly-tap-trung.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">15</span>Lịch hẹn CRM</a>
+<a href="16-single-customer-view-crm.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">16</span>Single Customer View</a>
+<a href="17-phan-quyen-nhan-vien-rbac.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">17</span>Phân quyền RBAC</a>
+<a href="18-bao-cao-bi-va-dashboard-quan-tri.html" style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;text-decoration:none;color:#334155;font-size:13px;font-weight:500;background:transparent;transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')){this.style.background='#EFF6FF';this.style.color='#2563EB';}" onmouseout="if(!this.classList.contains('active')){this.style.background='transparent';this.style.color='#334155';}"><span style="font-size:11px;background:rgba(0,0,0,0.06);padding:2px 6px;border-radius:4px;font-weight:700;color:inherit;">18</span>Báo cáo BI & Dashboard</a>
+    </div>
+  </div>
+  <div class="main-content">
+    <!-- Hero -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:28px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.02);">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap;">
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:700;background:#DBEAFE;color:#1E40AF;">FLOW 13</span>
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:700;background:#DCFCE7;color:#166534;">⭐⭐ Trung bình thấp</span>
+        <span style="font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;">📖 Nguồn: Mục 14</span>
+      </div>
+      <h1 style="font-size:26px;font-weight:800;color:#0F172A;margin-bottom:8px;">Click & Collect — Đặt Giữ Máy Tại Cửa Hàng</h1>
+      <p style="font-size:15px;color:#334155;margin-bottom:18px;">Khách hàng kiểm tra tồn kho thực tế theo cửa hàng, chọn đặt giữ máy online, nhân viên xác nhận và khách đến lấy tại quầy.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;background:#F8FAFC;padding:16px;border-radius:10px;border:1px solid #EDF2F7;">
+        <div>
+          <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🎯 Mục tiêu</div>
+          <div style="font-size:13.5px;color:#0F172A;">Giảm thiểu tình trạng khách đến cửa hàng mà không có hàng, đồng thời chuyển đổi lượt truy cập online thành doanh thu offline chắc chắn.</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">👥 Các bên tham gia</div>
+          <div style="font-size:13.5px;color:#0F172A;"><span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Khách hàng</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Nhân viên Sales CRM</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Thủ kho</span> <span style="background:#F1F5F9;color:#475569;font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600;border:1px solid #CBD5E1;">Website PhoneX</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mermaid Diagram -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:16px;">📊 Sơ đồ Quy trình</div>
+      <div class="mermaid">
+flowchart TD
+    Start(["🚀 Bắt đầu"]) --> Step1["🏪 1. Xem danh sách & Chọn Cửa hàng"]
+    Step1 --> Step2["📦 2. Kiểm tra tồn kho theo biến thể tại chi nhánh"]
+    Step2 --> Step3{"Còn hàng?"}
+    Step3 -- "Còn hàng" --> Step4["🛒 3. Chọn Click & Collect khi Checkout"]
+    Step3 -- "Hết hàng" --> AltEnd(["↩️ Tìm cửa hàng khác hoặc đặt giao"])
+    Step4 --> Step5["📲 4. Nhận SMS xác nhận & Mã giữ hàng 24h"]
+    Step5 --> Step6["🔔 5. CRM chuẩn bị máy, quét IMEI → Đang giữ"]
+    Step6 --> Step7["🤝 6. Khách đến lấy, thanh toán, kích hoạt BH IMEI"]
+    Step7 --> End(["🏁 Hoàn tất Click & Collect"])
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:20px;">🔢 Các Bước Chi tiết</div>
+      <div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏪</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 1: Xem danh sách Cửa hàng</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Khách hàng</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Vào trang Cửa hàng trên website, lọc theo Tỉnh/Thành phố và Quận/Huyện, chọn cửa hàng phù hợp.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Trang chi tiết cửa hàng (địa chỉ, hotline, giờ hoạt động, bản đồ, dịch vụ).</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📦</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 2: Kiểm tra Tồn kho theo Cửa hàng</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Khách hàng</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Trên trang sản phẩm hoặc trang cửa hàng, xem tồn kho theo biến thể màu sắc/dung lượng tại từng chi nhánh.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Badge trạng thái: Còn hàng / Ít hàng / Hết hàng theo từng cửa hàng.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🛒</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 3: Chọn Click & Collect khi Checkout</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Khách hàng</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Trong luồng checkout, thay vì chọn 'Giao tận nơi', khách chọn 'Nhận tại cửa hàng', chọn chi nhánh muốn lấy hàng.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Hệ thống xác nhận tồn kho tức thời và giữ máy trong 24 giờ.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">📲</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 4: Nhận xác nhận Đặt giữ</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Khách hàng</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Nhận SMS/thông báo xác nhận đặt giữ máy, thông tin cửa hàng, giờ đến lấy và thời hạn giữ hàng.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Mã đặt giữ (reservation code) + thời hạn giữ 24h.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🔔</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 5: CRM nhận yêu cầu & Chuẩn bị hàng</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Nhân viên Sales CRM / Thủ kho</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">CRM hiển thị đơn Click & Collect trong dashboard, thủ kho quét IMEI và tách hàng ra khu vực 'Đang giữ cho khách'.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">IMEI được cập nhật trạng thái 'Đang giữ', in phiếu giữ hàng kèm tên khách.</div>
+    </div>
+  </div>
+</div>
+<div style="background:white;border:1px solid #E2E8F0;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 6px rgba(0,0,0,0.02);">
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;border-bottom:1px solid #F1F5F9;padding-bottom:12px;">
+    <div style="width:36px;height:36px;border-radius:10px;background:#2563EB;color:white;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🤝</div>
+    <div style="flex:1;">
+      <div style="font-size:16px;font-weight:700;color:#0F172A;">Bước 6: Khách đến lấy hàng & Thanh toán tại quầy</div>
+      <div style="font-size:12.5px;color:#64748B;font-weight:600;margin-top:2px;">👤 Nhân viên Sales CRM / Khách hàng</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+    <div style="background:#F8FAFC;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Hành động</div>
+      <div style="font-size:13.5px;color:#0F172A;">Nhân viên tra mã đặt giữ, kiểm tra CMND/CCCD, xuất hàng và thanh toán tiền mặt hoặc chuyển khoản.</div>
+    </div>
+    <div style="background:#F0FDF4;border-radius:8px;padding:14px;">
+      <div style="font-size:11px;font-weight:800;color:#166534;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">✅ Kết quả</div>
+      <div style="font-size:13.5px;color:#0F172A;">Hóa đơn bán hàng, kích hoạt bảo hành IMEI, đóng đơn Click & Collect.</div>
+    </div>
+  </div>
+</div>
+    </div>
+
+    <!-- Sync Note -->
+    <div style="background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%);border:1px solid #BFDBFE;border-radius:12px;padding:20px;margin-bottom:24px;">
+      <div style="font-size:15px;font-weight:700;color:#1E40AF;margin-bottom:8px;">🔄 Đồng bộ Website ↔ CRM</div>
+      <div style="font-size:14px;color:#1E3A8A;">Khi IMEI được giữ (bước 5), tồn kho hiển thị trên website giảm ngay lập tức. Nếu khách không đến lấy sau 24h, hệ thống tự giải phóng IMEI trở lại 'Sẵn sàng bán'.</div>
+    </div>
+
+    <!-- Edge Cases -->
+    <div style="background:white;border-radius:14px;border:1px solid #E2E8F0;padding:24px;margin-bottom:24px;">
+      <div style="font-size:18px;font-weight:800;color:#0F172A;margin-bottom:16px;">⚠️ Trường hợp Ngoại lệ</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Khách không đến đúng hẹn</div>
+  <div style="font-size:13px;color:#7C2D12;">Hệ thống tự hủy giữ sau 24h, gửi SMS nhắc trước 2h.</div>
+</div>
+<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Tồn kho thay đổi sau khi giữ</div>
+  <div style="font-size:13px;color:#7C2D12;">IMEI đã lock — không thể bán cho người khác khi đang giữ.</div>
+</div>
+<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px;">
+  <div style="font-size:13px;font-weight:700;color:#C2410C;margin-bottom:6px;">⚠️ Khách muốn đổi cửa hàng nhận</div>
+  <div style="font-size:13px;color:#7C2D12;">Cần hủy đặt giữ cũ, kiểm tra tồn kho chi nhánh mới và tạo lại.</div>
+</div>
+      </div>
+    </div>
+
+    <!-- Footer Nav -->
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid #E2E8F0;color:#334155;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;">← Flow 12: Pricing Engine & Khuyến mãi</a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid #E2E8F0;color:#334155;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:600;">🏠 Về Trang chủ</a>
+      <a href="14-tai-khoan-khach-hang-va-member-portal.html" style="display:inline-flex;align-items:center;gap:8px;background:#2563EB;color:white;text-decoration:none;padding:10px 18px;border-radius:8px;font-size:14px;font-weight:700;">Flow 14: Tài khoản Member Portal →</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

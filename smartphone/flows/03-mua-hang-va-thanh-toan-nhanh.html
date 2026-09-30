@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow 03 - Mua hàng & Đặt hàng Nhanh (Click & Collect) | PhoneX Architecture</title>
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --secondary: #2563EB;
+            --dark: #0F172A;
+            --text: #334155;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --card-bg: #FFFFFF;
+            --bg: #F8FAFC;
+            --success: #0D9488;
+            --warning: #D97706;
+            --danger: #E11D48;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+        body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+        
+        /* Top Banner */
+        .topbar { background: var(--dark); color: white; padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--secondary); }
+        .brand { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .brand-badge { background: var(--secondary); font-size: 11px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 700; }
+        .topbar-links a { color: #94A3B8; text-decoration: none; font-size: 13px; font-weight: 500; margin-left: 16px; transition: color 0.2s; }
+        .topbar-links a:hover { color: white; }
+
+        /* Layout Container */
+        .layout { display: flex; max-width: 1400px; margin: 24px auto; gap: 24px; padding: 0 16px; }
+        
+        /* Sidebar Navigation */
+        .sidebar { width: 280px; flex-shrink: 0; background: white; border-radius: 12px; border: 1px solid var(--border); padding: 16px; height: fit-content; position: sticky; top: 20px; }
+        .sidebar-title { font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .nav-list { display: flex; flex-direction: column; gap: 4px; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; text-decoration: none; color: var(--text); font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .nav-item:hover { background: var(--primary-light); color: var(--secondary); }
+        .nav-item.active { background: var(--secondary); color: white; font-weight: 700; }
+        .nav-num { font-size: 11px; background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+        .nav-item.active .nav-num { background: rgba(255,255,255,0.25); color: white; }
+
+        /* Main Content */
+        .main-content { flex: 1; min-width: 0; }
+
+        /* Hero Header */
+        .flow-hero { background: white; border-radius: 14px; border: 1px solid var(--border); padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .meta-tags { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+        .badge { font-size: 12px; padding: 4px 10px; border-radius: 20px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+        .badge-flow { background: #DBEAFE; color: #1E40AF; }
+        .badge-complexity { background: #FEF3C7; color: #92400E; }
+        .badge-actor { background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; }
+
+        .flow-title { font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+        .flow-desc { font-size: 15px; color: var(--text); margin-bottom: 18px; }
+        
+        .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; background: #F8FAFC; padding: 16px; border-radius: 10px; border: 1px solid #EDF2F7; }
+        .hero-col-title { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+        .hero-col-text { font-size: 13.5px; color: var(--dark); }
+
+        /* Section Titles */
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin: 30px 0 16px 0; }
+        .section-title { font-size: 18px; font-weight: 800; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+
+        /* Visual Timeline Step Cards */
+        .steps-container { display: flex; flex-direction: column; gap: 16px; position: relative; }
+        .step-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.02); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+        .step-card:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.05); border-color: #CBD5E1; }
+        
+        .step-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; border-bottom: 1px solid #F1F5F9; padding-bottom: 12px; }
+        .step-badge { width: 36px; height: 36px; border-radius: 10px; background: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; flex-shrink: 0; box-shadow: 0 4px 10px rgba(37,99,235,0.25); }
+        .step-title-group { flex: 1; }
+        .step-title { font-size: 16px; font-weight: 700; color: var(--dark); }
+        .step-actor { font-size: 12.5px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+        .step-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 800px) { .step-body { grid-template-columns: 1fr; } }
+
+        .action-box { background: #FAFAFA; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px 14px; }
+        .system-box { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px; }
+        .box-label { font-size: 10px; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; color: #4B5563; }
+        .system-box .box-label { color: #166534; }
+        .box-content { font-size: 13.5px; line-height: 1.5; color: var(--dark); }
+
+        /* Sync Callout */
+        .sync-card { background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%); color: white; border-radius: 12px; padding: 22px; margin-top: 24px; box-shadow: 0 6px 18px rgba(30,58,138,0.18); }
+        .sync-title { font-size: 16px; font-weight: 800; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .sync-desc { font-size: 14px; opacity: 0.95; line-height: 1.6; }
+
+        /* FAQ Edge Cases */
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+        @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; } }
+        .faq-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+        .faq-q { font-size: 13.5px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+        .faq-a { font-size: 13px; color: var(--text); line-height: 1.5; }
+
+        /* Footer Nav Buttons */
+        .footer-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px; font-size: 13.5px; font-weight: 700; text-decoration: none; transition: all 0.2s; }
+        .btn-prev { background: white; border: 1px solid var(--border); color: var(--dark); }
+        .btn-prev:hover { background: #F1F5F9; border-color: #CBD5E1; }
+        .btn-next { background: var(--secondary); color: white; }
+        .btn-next:hover { background: #1D4ED8; }
+        .btn-index { background: #F1F5F9; color: var(--dark); }
+        .btn-index:hover { background: #E2E8F0; }
+    
+        /* Sơ đồ Quy trình Trực quan */
+        .diagram-container {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        .diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 14px;
+        }
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        .diagram-title-icon {
+            font-size: 20px;
+        }
+        .diagram-legend {
+            display: flex;
+            gap: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .diagram-canvas {
+            overflow-x: auto;
+            padding: 16px 8px;
+            background: #FAF5FF;
+            background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+        }
+        .diagram-flow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: max-content;
+            padding: 8px 4px;
+        }
+        .diagram-node {
+            background: white;
+            border: 2px solid #CBD5E1;
+            border-radius: 10px;
+            padding: 12px 14px;
+            width: 210px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+            position: relative;
+        }
+        .diagram-node:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+        .node-start {
+            border-color: #2563EB;
+            background: #F8FAFC;
+        }
+        .node-system {
+            border-color: #9333EA;
+            background: #FAF5FF;
+        }
+        .node-decision {
+            border-color: #D97706;
+            background: #FFFBEB;
+            border-style: dashed;
+        }
+        .node-success {
+            border-color: #16A34A;
+            background: #F0FDF4;
+        }
+        .node-warning {
+            border-color: #DC2626;
+            background: #FEF2F2;
+        }
+
+        .d-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .d-icon {
+            font-size: 16px;
+        }
+        .d-role {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .d-index {
+            font-size: 10px;
+            color: #94A3B8;
+            font-weight: 700;
+        }
+        .d-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .d-desc {
+            font-size: 11px;
+            color: #64748B;
+            line-height: 1.4;
+        }
+        .diagram-arrow {
+            font-size: 18px;
+            font-weight: 800;
+            color: #94A3B8;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .diagram-footer {
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+
+        /* SVG Diagram Card */
+        .svg-diagram-card {
+            background: white;
+            border: 2px solid #2563EB;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+        }
+        .svg-diagram-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+            border-bottom: 2px solid #EFF6FF;
+            padding-bottom: 12px;
+        }
+        .svg-header-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1E3A8A;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .svg-canvas-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #E2E8F0;
+            padding: 8px;
+            background: #FFFFFF;
+        }
+
+</style>
+
+    <!-- Mermaid.js for Interactive Flowchart Rendering -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: { curve: 'basis', htmlLabels: true }
+        });
+    </script>
+</head>
+<body>
+    <div class="topbar">
+        <div class="brand">
+            <span>📱 PHONEX</span>
+            <span class="brand-badge">Architecture Flows</span>
+        </div>
+        <div class="topbar-links">
+            <a href="index.html">📋 Tổng quan 12 Flows</a>
+            <a href="../docs/Tong_quan_chuc_nang_PhoneX.docx">📄 Tải File Word</a>
+        </div>
+    </div>
+
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Danh mục 12 Quy trình</div>
+            <nav class="nav-list">
+                <a href="01-kham-pha-va-tim-kiem-san-pham.html" class="nav-item ">
+            <span class="nav-num">01</span>
+            <span class="nav-name">Khám phá & Tìm kiếm Sản phẩm</span>
+        </a><a href="02-so-sanh-dien-thoai.html" class="nav-item ">
+            <span class="nav-num">02</span>
+            <span class="nav-name">So sánh Điện thoại Song song</span>
+        </a><a href="03-mua-hang-va-thanh-toan-nhanh.html" class="nav-item active">
+            <span class="nav-num">03</span>
+            <span class="nav-name">Mua hàng & Đặt hàng Nhanh (Click & Collect)</span>
+        </a><a href="04-tra-cuu-don-hang-va-bao-mat.html" class="nav-item ">
+            <span class="nav-num">04</span>
+            <span class="nav-name">Tra cứu Đơn hàng & Bảo mật Dữ liệu</span>
+        </a><a href="05-dinh-gia-may-cu-online.html" class="nav-item ">
+            <span class="nav-num">05</span>
+            <span class="nav-name">Định giá Máy cũ Trực tuyến (Valuation Engine)</span>
+        </a><a href="06-ban-may-cu-lay-tien-mat.html" class="nav-item ">
+            <span class="nav-num">06</span>
+            <span class="nav-name">Bán Máy cũ Lấy Tiền mặt & Đặt Lịch hẹn</span>
+        </a><a href="07-thu-cu-doi-moi-trade-in.html" class="nav-item ">
+            <span class="nav-num">07</span>
+            <span class="nav-name">Thu cũ Đổi mới (Trade-in Flagship)</span>
+        </a><a href="08-tiep-nhan-va-xu-ly-bao-hanh.html" class="nav-item ">
+            <span class="nav-num">08</span>
+            <span class="nav-name">Tiếp nhận & Xử lý Bảo hành (RMA Support)</span>
+        </a><a href="09-dieu-phoi-va-xu-ly-don-hang-crm.html" class="nav-item ">
+            <span class="nav-num">09</span>
+            <span class="nav-name">Điều phối & Xử lý Đơn hàng trên CRM (Fulfillment)</span>
+        </a><a href="10-kiem-dinh-ky-thuat-va-nhap-kho-may-cu.html" class="nav-item ">
+            <span class="nav-num">10</span>
+            <span class="nav-name">Kiểm định Kỹ thuật & Nhập kho Máy cũ</span>
+        </a><a href="11-quan-tri-vong-doi-imei-ton-kho-da-diem.html" class="nav-item ">
+            <span class="nav-num">11</span>
+            <span class="nav-name">Quản trị Vòng đời IMEI & Tồn kho Đa điểm</span>
+        </a><a href="12-dong-co-pricing-va-chuong-trinh-khuyen-mai.html" class="nav-item ">
+            <span class="nav-num">12</span>
+            <span class="nav-name">Động cơ Định giá Thu mua & Quản trị Khuyến mãi</span>
+        </a>
+            </nav>
+        </aside>
+
+        <!-- Main Flow View -->
+        <main class="main-content">
+            <div class="flow-hero">
+                <div class="meta-tags">
+                    <span class="badge badge-flow">FLOW 03 / 12</span>
+                    <span class="badge badge-complexity">⭐⭐ Trung bình</span>
+                    <span class="badge badge-actor">Khách hàng (Guest / Member)</span><span class="badge badge-actor">Website PhoneX</span><span class="badge badge-actor">Hệ thống CRM</span>
+                </div>
+                <h1 class="flow-title">Mua hàng & Đặt hàng Nhanh (Click & Collect)</h1>
+                <p class="flow-desc">Khách hàng đặt mua điện thoại không cần tài khoản, lựa chọn nhận hàng tận nhà hoặc đến lấy tại cửa hàng (Click & Collect).</p>
+
+                <div class="hero-grid">
+                    <div>
+                        <div class="hero-col-title">🎯 MỤC TIÊU NGHIỆP VỤ</div>
+                        <div class="hero-col-text">Tối ưu hóa tỷ lệ chuyển đổi đơn hàng với quy trình thanh toán ngắn gọn nhất, không ép đăng nhập và minh bạch chi phí.</div>
+                    </div>
+                    <div>
+                        <div class="hero-col-title">⚡ ĐIỀU KIỆN TIÊN QUYẾT</div>
+                        <div class="hero-col-text">Sản phẩm còn tồn kho và bảng giá niêm yết đang có hiệu lực.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps Section -->
+            
+            
+    <div class="svg-diagram-card">
+  <div class="svg-diagram-header">
+    <div class="svg-header-title">
+      <span style="font-size:20px;">🗺️</span>
+      <span>SƠ ĐỒ QUY TRÌNH HÌNH ẢNH TRỰC QUAN</span>
+    </div>
+    <div style="font-size:12px; color:#64748B; font-weight:600;">
+      Hiển thị trực tiếp bằng đồ họa Vector SVG (Không cần cài đặt, xem ngay trên mọi thiết bị)
+    </div>
+  </div>
+  <div class="svg-canvas-wrapper">
+    <svg width="100%" height="440" viewBox="0 0 980 440" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif; min-width:980px;">
+      <defs>
+        <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.08"/>
+        </filter>
+        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B"/>
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB"/>
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#16A34A"/>
+        </marker>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="#DC2626"/>
+        </marker>
+      </defs>
+      
+  <!-- Swimlanes -->
+  <rect x="20" y="20" width="940" height="110" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="35" y="42" font-size="11" font-weight="800" fill="#64748B">BƯỚC 1: GIỎ HÀNG & THÔNG TIN KHÁCH (KHÔNG ÉP LOGIN)</text>
+
+  <rect x="20" y="145" width="940" height="150" rx="8" fill="#FFFBEB" stroke="#FDE68A"/>
+  <text x="35" y="167" font-size="11" font-weight="800" fill="#B45309">BƯỚC 2: PHÂN NHÁNH HÌNH THỨC NHẬN HÀNG</text>
+
+  <rect x="20" y="310" width="940" height="120" rx="8" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="35" y="332" font-size="11" font-weight="800" fill="#15803D">BƯỚC 3: THANH TOÁN & ĐỒNG BỘ ĐƠN HÀNG SANG CRM</text>
+
+  <!-- Node 1 -->
+  <g transform="translate(40, 50)" filter="url(#shadow)">
+    <rect width="150" height="55" rx="8" fill="#1E3A8A"/>
+    <text x="75" y="24" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">1. Giỏ Hàng & Mã Giảm</text>
+    <text x="75" y="41" font-size="9.5" fill="#93C5FD" text-anchor="middle">Nhập Voucher nếu có</text>
+  </g>
+  <line x1="190" y1="77" x2="225" y2="77" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Node 2 -->
+  <g transform="translate(230, 50)" filter="url(#shadow)">
+    <rect width="170" height="55" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="85" y="24" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle">2. Điền Họ Tên + SĐT</text>
+    <text x="85" y="41" font-size="9.5" fill="#64748B" text-anchor="middle">Khách mua ngay (Guest)</text>
+  </g>
+
+  <!-- Arrow down to Decision in Lane 2 -->
+  <path d="M 315 105 L 315 175" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision Node -->
+  <g transform="translate(245, 175)" filter="url(#shadow)">
+    <polygon points="70,0 140,32 70,64 0,32" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+    <text x="70" y="29" font-size="11" font-weight="800" fill="#92400E" text-anchor="middle">Hình thức</text>
+    <text x="70" y="43" font-size="10.5" font-weight="800" fill="#92400E" text-anchor="middle">nhận hàng?</text>
+  </g>
+
+  <!-- Branch 1: Giao tận nơi -->
+  <path d="M 245 207 L 120 207 L 120 225" fill="none" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <rect x="130" y="195" width="70" height="18" rx="3" fill="#DBEAFE"/>
+  <text x="165" y="208" font-size="9.5" font-weight="700" fill="#1E40AF" text-anchor="middle">Giao tận nơi</text>
+
+  <g transform="translate(40, 225)" filter="url(#shadow)">
+    <rect width="160" height="55" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="80" y="24" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Điền Địa Chỉ Nhà</text>
+    <text x="80" y="41" font-size="9.5" fill="#64748B" text-anchor="middle">Tính phí ship tự động</text>
+  </g>
+
+  <!-- Branch 2: Click & Collect -->
+  <path d="M 385 207 L 500 207 L 500 225" fill="none" stroke="#2563EB" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <rect x="400" y="195" width="90" height="18" rx="3" fill="#DBEAFE"/>
+  <text x="445" y="208" font-size="9.5" font-weight="700" fill="#1E40AF" text-anchor="middle">Click & Collect</text>
+
+  <g transform="translate(420, 225)" filter="url(#shadow)">
+    <rect width="160" height="55" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="80" y="24" font-size="11" font-weight="700" fill="#0F172A" text-anchor="middle">Chọn Cửa Hàng Gần</text>
+    <text x="80" y="41" font-size="9.5" fill="#64748B" text-anchor="middle">CRM khóa giữ máy 24h</text>
+  </g>
+
+  <!-- Connect to Lane 3 -->
+  <path d="M 120 280 L 120 340 L 230 340" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 500 280 L 500 340 L 410 340" fill="none" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(235, 340)" filter="url(#shadow)">
+    <rect width="170" height="60" rx="8" fill="#FFFFFF" stroke="#3B82F6" stroke-width="1.5"/>
+    <text x="85" y="25" font-size="11.5" font-weight="700" fill="#0F172A" text-anchor="middle">Chọn Thanh Toán</text>
+    <text x="85" y="43" font-size="9.5" fill="#64748B" text-anchor="middle">COD / VietQR / Chuyển khoản</text>
+  </g>
+  <line x1="405" y1="370" x2="480" y2="370" stroke="#64748B" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <g transform="translate(485, 340)" filter="url(#shadow)">
+    <rect width="210" height="60" rx="8" fill="#15803D"/>
+    <text x="105" y="25" font-size="12" font-weight="800" fill="#FFFFFF" text-anchor="middle">✅ Hoàn Tất Đơn Hàng</text>
+    <text x="105" y="44" font-size="9.5" fill="#BBF7D0" text-anchor="middle">Đơn đổ về CRM + Gửi SMS xác nhận</text>
+  </g>
+
+    </svg>
+  </div>
+</div>
+
+            <!-- SƠ ĐỒ QUY TRÌNH TRỰC QUAN -->
+    <div class="diagram-container">
+        <div class="diagram-header">
+            <div class="diagram-title">
+                <span class="diagram-title-icon">🗺️</span>
+                <span>SƠ ĐỒ QUY TRÌNH TRỰC QUAN (WORKFLOW DIAGRAM)</span>
+            </div>
+            <div class="diagram-legend">
+                <span class="legend-item"><span class="legend-dot" style="background:#2563EB;"></span> Khách hàng</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#9333EA;"></span> CRM / Hệ thống</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#D97706;"></span> Điểm rẽ nhánh</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#16A34A;"></span> Thành công</span>
+            </div>
+        </div>
+
+        <div class="diagram-canvas">
+            <div class="diagram-flow">
+                
+        <div class="diagram-node node-start" id="diag-n1">
+            <div class="d-header">
+                <span class="d-icon">🛒</span>
+                <span class="d-role" style="background:#DBEAFE; color:#1E40AF;">Khách hàng</span>
+                <span class="d-index">#1</span>
+            </div>
+            <div class="d-title">Kiểm tra Giỏ hàng & Voucher</div>
+            <div class="d-desc">Xem lại sản phẩm, quà tặng & nhập mã giảm giá</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n2">
+            <div class="d-header">
+                <span class="d-icon">✍️</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Khách hàng</span>
+                <span class="d-index">#2</span>
+            </div>
+            <div class="d-title">Điền Tên + Số Điện Thoại</div>
+            <div class="d-desc">Mua sắm không cần đăng nhập hay tạo mật khẩu</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-decision" id="diag-n3">
+            <div class="d-header">
+                <span class="d-icon">🚚</span>
+                <span class="d-role" style="background:#FEF3C7; color:#92400E;">Lựa chọn</span>
+                <span class="d-index">#3</span>
+            </div>
+            <div class="d-title">Chọn Hình thức Nhận hàng?</div>
+            <div class="d-desc">Giao tận nhà hay Nhận tại cửa hàng?</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n4a">
+            <div class="d-header">
+                <span class="d-icon">🏠</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Phương án 1</span>
+                <span class="d-index">#4</span>
+            </div>
+            <div class="d-title">Giao Tận Nơi</div>
+            <div class="d-desc">Điền địa chỉ nhà + Tính phí vận chuyển</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n4b">
+            <div class="d-header">
+                <span class="d-icon">🏬</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Phương án 2</span>
+                <span class="d-index">#5</span>
+            </div>
+            <div class="d-title">Click & Collect (Shop)</div>
+            <div class="d-desc">Chọn cửa hàng gần nhất + CRM khóa giữ máy 24h</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node border-blue" id="diag-n5">
+            <div class="d-header">
+                <span class="d-icon">💳</span>
+                <span class="d-role" style="background:#EFF6FF; color:#1E40AF;">Khách hàng</span>
+                <span class="d-index">#6</span>
+            </div>
+            <div class="d-title">Chọn Thanh toán: COD / VietQR</div>
+            <div class="d-desc">Xác nhận tổng số tiền thanh toán cuối cùng</div>
+        </div>
+        <div class="diagram-arrow">➔</div>
+        <div class="diagram-node node-success" id="diag-n6">
+            <div class="d-header">
+                <span class="d-icon">✅</span>
+                <span class="d-role" style="background:#DCFCE7; color:#166534;">Website & CRM</span>
+                <span class="d-index">#7</span>
+            </div>
+            <div class="d-title">Tạo Đơn Hàng Thành Công</div>
+            <div class="d-desc">Đơn đổ về CRM Dashboard + Gửi SMS xác nhận cho khách</div>
+        </div>
+        
+            </div>
+        </div>
+
+        <div class="diagram-footer">
+            💡 <em>Ghi chú: Sơ đồ trên tóm tắt toàn bộ luồng rẽ nhánh và điểm chuyển giao dữ liệu giữa Website và CRM. Xem bảng mô tả chi tiết từng bước ở ngay bên dưới.</em>
+        </div>
+    </div>
+    
+
+            <!-- SƠ ĐỒ CHUẨN UML / MERMAID -->
+            <div class="diagram-container" style="margin-top: -10px; margin-bottom: 24px;">
+                <div class="diagram-header" style="border-bottom:none; margin-bottom:0; padding-bottom:0;">
+                    <div class="diagram-title" style="font-size:14px; color:#475569;">
+                        <span>📐 Sơ đồ Chuẩn UML / Mermaid Logic</span>
+                    </div>
+                    <button onclick="var m = document.getElementById('mermaid-box-03'); m.style.display = (m.style.display === 'none' ? 'block' : 'none');" style="background:#F1F5F9; border:1px solid #CBD5E1; padding:4px 10px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Bật / Ẩn sơ đồ chi tiết</button>
+                </div>
+                <div id="mermaid-box-03" style="display:none; margin-top:14px; padding:16px; background:#F8FAFC; border-radius:8px; border:1px solid #E2E8F0; text-align:center;">
+                    <pre class="mermaid">
+flowchart TD
+    Start(["🚀 Bắt đầu"]) --> Step1["🛒 1. Vào Giỏ hàng & Nhập mã Voucher"]
+    Step1 --> Step2["✍️ 2. Điền Họ tên + SĐT (Không cần login)"]
+    Step2 --> Step3{"🚚 3. Chọn Hình thức Nhận hàng?"}
+    Step3 -- "Phương án 1" --> Step4a["🏠 Giao tận nơi: Điền địa chỉ & Phí ship"]
+    Step3 -- "Phương án 2" --> Step4b["🏬 Nhận tại shop: Chọn Cửa hàng & Khóa giữ máy"]
+    Step4a --> Step5["💳 4. Chọn Thanh toán: COD / VietQR / Chuyển khoản"]
+    Step4b --> Step5
+    Step5 --> Step6["✅ 5. Bấm 'Hoàn tất Đặt hàng'"]
+    Step6 --> Step7["📲 6. Gửi SMS xác nhận & Đơn đổ về CRM"]
+    Step7 --> End(["🏁 Chờ nhận hàng"])
+                    </pre>
+                </div>
+            </div>
+            
+<div class="section-header">
+                <div class="section-title">
+                    <span>⚡ Tiến trình Thực thi Từng bước</span>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);">5 Bước nghiệp vụ</div>
+            </div>
+
+            <div class="steps-container">
+                
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">01</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Kiểm tra Giỏ hàng & Nhập mã Ưu đãi</h3>
+                    <div class="step-actor"><span class="actor-icon">👤</span> Khách hàng</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Khách xem lại danh sách máy, màu sắc, số lượng, quà tặng đi kèm. Nhập mã voucher khuyến mãi nếu có.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Tính toán tự động: Tiền hàng − Giảm giá voucher = Tạm tính.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">02</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Điền Thông tin Người nhận (Không ép đăng nhập)</h3>
+                    <div class="step-actor"><span class="actor-icon">👤</span> Khách hàng</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Khách chỉ cần điền Họ tên, Số điện thoại và Ghi chú giao hàng. Hệ thống không bắt buộc tạo mật khẩu hay đăng nhập.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Xác thực định dạng số điện thoại Việt Nam hợp lệ; tự động lưu thông tin khách hàng vào CRM.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">03</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Chọn Hình thức Nhận hàng</h3>
+                    <div class="step-actor"><span class="actor-icon">👤</span> Khách hàng</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Khách chọn 1 trong 2 hình thức:<br>- Phương án A: Giao hàng tận nơi (Điền địa chỉ nhà, tính phí vận chuyển).<br>- Phương án B: Nhận tại cửa hàng (Click & Collect - Chọn chi nhánh gần nhất để đặt giữ máy).</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Nếu chọn Click & Collect, hệ thống kiểm tra tồn kho tại chi nhánh đó và kích hoạt cơ chế tạm khóa (giữ chỗ) máy.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">04</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Chọn Phương thức Thanh toán & Xác nhận</h3>
+                    <div class="step-actor"><span class="actor-icon">👤</span> Khách hàng</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Chọn Thanh toán khi nhận hàng (COD), Chuyển khoản ngân hàng hoặc Quét mã VietQR. Kiểm tra tổng số tiền thanh toán cuối cùng và bấm [Hoàn tất Đặt hàng].</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Tạo mã đơn hàng (VD: PX-88392), chuyển trạng thái đơn sang 'Đã tiếp nhận' và đồng bộ sang CRM.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-card">
+            <div class="step-header">
+                <div class="step-badge">05</div>
+                <div class="step-title-group">
+                    <h3 class="step-title">Nhận Thông báo Đặt hàng Thành công</h3>
+                    <div class="step-actor"><span class="actor-icon">👤</span> Khách hàng</div>
+                </div>
+            </div>
+            <div class="step-body">
+                <div class="action-box">
+                    <div class="box-label">HÀNH ĐỘNG NGHIỆP VỤ</div>
+                    <div class="box-content">Màn hình hiển thị thông tin tóm tắt đơn hàng, mã đơn, hướng dẫn nhận hàng và số hotline hỗ trợ.</div>
+                </div>
+                <div class="system-box">
+                    <div class="box-label">⚙️ HỆ THỐNG XỬ LÝ (UNDER THE HOOD)</div>
+                    <div class="box-content">Gửi SMS / Zalo ZNS xác nhận đến số điện thoại của khách kèm liên kết tra cứu đơn.</div>
+                </div>
+            </div>
+        </div>
+        
+            </div>
+
+            <!-- Sync Block -->
+            <div class="sync-card">
+                <div class="sync-title">🔄 LIÊN THÔNG DỮ LIỆU THỜI GIAN THỰC (WEBSITE ↔ CRM)</div>
+                <div class="sync-desc">Đơn hàng mới tạo lập tức xuất hiện trên CRM Dashboard của chi nhánh tiếp nhận. Tồn kho sản phẩm được cập nhật trạng thái 'Đang giữ chỗ'.</div>
+            </div>
+
+            <!-- Edge Cases Section -->
+            <div class="section-header" style="margin-top: 28px;">
+                <div class="section-title">
+                    <span>🛡️ Tình huống Xử lý Ngoại lệ & Rủi ro</span>
+                </div>
+            </div>
+            <div class="faq-grid">
+                
+        <div class="faq-item">
+            <div class="faq-q">❓ Khách đặt Click & Collect nhưng sau 24h không đến lấy?</div>
+            <div class="faq-a">👉 <strong>Xử lý:</strong> CRM tự động chuyển trạng thái đơn thành 'Quá hạn giữ máy', nhả số lượng tồn kho về trạng thái 'Sẵn sàng bán' cho khách khác.</div>
+        </div>
+        
+        <div class="faq-item">
+            <div class="faq-q">❓ Số điện thoại khách nhập sai định dạng?</div>
+            <div class="faq-a">👉 <strong>Xử lý:</strong> Giao diện báo đỏ ngay tại ô nhập liệu, ngăn không cho bấm đặt hàng cho đến khi sửa đúng.</div>
+        </div>
+        
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="footer-nav"><a href="02-so-sanh-dien-thoai.html" class="btn btn-prev">← Flow 02: So sánh Điện thoại Song song</a><a href="index.html" class="btn btn-index">📋 Danh sách 12 Flows</a><a href="04-tra-cuu-don-hang-va-bao-mat.html" class="btn btn-next">Flow 04: Tra cứu Đơn hàng & Bảo mật Dữ liệu →</a></div>
+        </main>
+    </div>
+</body>
+</html>
